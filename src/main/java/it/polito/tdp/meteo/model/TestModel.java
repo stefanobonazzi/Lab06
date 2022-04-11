@@ -9,8 +9,7 @@ public class TestModel {
 		System.out.println(m.getUmiditaMedia(12));
 		
 		System.out.println(m.trovaSequenza(5));
-		
-
+	
 	}
 
 }
