@@ -7,17 +7,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.tdp.meteo.model.Citta;
 import it.polito.tdp.meteo.model.Rilevamento;
 
 public class MeteoDAO {
 	
-	public List<String> getAllCities() {
+	public List<Citta> getAllCities() {
 		
 		final String sql = "SELECT localita "
 				+ "FROM situazione "
 				+ "group by localita";
 				
-		List<String> cities = new ArrayList<>();
+		List<Citta> cities = new ArrayList<>();
 		
 		try {
 			Connection conn = ConnectDB.getConnection();
@@ -25,7 +26,7 @@ public class MeteoDAO {
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
-				cities.add(rs.getString("localita"));
+				cities.add(new Citta(rs.getString("localita")));
 			}
 
 			conn.close();
@@ -52,7 +53,7 @@ public class MeteoDAO {
 
 			while (rs.next()) {
 
-				Rilevamento r = new Rilevamento(rs.getString("Localita"), rs.getDate("Data"), rs.getInt("Umidita"));
+				Rilevamento r = new Rilevamento(new Citta (rs.getString("Localita")), rs.getDate("Data"), rs.getInt("Umidita"));
 				rilevamenti.add(r);
 			}
 
@@ -83,7 +84,7 @@ public class MeteoDAO {
 
 			while (rs.next()) {
 
-				Rilevamento r = new Rilevamento(rs.getString("Localita"), rs.getDate("Data"), rs.getInt("Umidita"));
+				Rilevamento r = new Rilevamento(new Citta (rs.getString("Localita")), rs.getDate("Data"), rs.getInt("Umidita"));
 				rilevamenti.add(r);
 			}
 
